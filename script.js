@@ -19,7 +19,7 @@ function renderQrCode(payload) {
   qr.make();
   const image = document.createElement("img");
   image.src = qr.createDataURL(5, 20);
-  image.alt = "QR code do Pix de demonstração, com o mesmo conteúdo do código copia e cola";
+  image.alt = "QR code Pix da demonstração MR’s Products, com o mesmo conteúdo do código copia e cola";
   image.width = image.height = (qr.getModuleCount() + 8) * 5;
   qrContainer.replaceChildren(image);
 }
@@ -86,7 +86,7 @@ form.addEventListener("submit", (event) => {
     error.textContent = "";
     amountInput.removeAttribute("aria-invalid");
     result.hidden = false;
-    status.textContent = "Código de demonstração gerado. Não faça pagamentos com esta chave.";
+    status.textContent = "Código Pix gerado com chave real. Confira o recebedor e o valor no seu banco.";
   } catch (err) {
     result.hidden = true;
     codeOutput.value = "";
@@ -113,7 +113,7 @@ copyButton.addEventListener("click", async () => {
   try {
     if (!navigator.clipboard || !window.isSecureContext) throw new Error("Clipboard indisponível");
     await navigator.clipboard.writeText(code);
-    if (codeOutput.value === code) status.textContent = "Código copiado! Esta chave é apenas de teste.";
+    if (codeOutput.value === code) status.textContent = "Código copiado! Chave real: confira o recebedor e o valor no seu banco.";
   } catch {
     // Fallback para páginas abertas diretamente por file:// ou com permissão negada.
     codeOutput.focus();
@@ -121,7 +121,7 @@ copyButton.addEventListener("click", async () => {
     codeOutput.setSelectionRange(0, codeOutput.value.length);
     let copied = false;
     try { copied = document.execCommand("copy"); } catch { /* Oferece cópia manual abaixo. */ }
-    status.textContent = copied ? "Código copiado! Esta chave é apenas de teste."
+    status.textContent = copied ? "Código copiado! Chave real: confira o recebedor e o valor no seu banco."
       : "Selecione e copie o código manualmente (Ctrl+C ou o menu Copiar do dispositivo).";
   }
 });
