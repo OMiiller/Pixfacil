@@ -58,9 +58,25 @@ function crc16(text) {
   return crc.toString(16).toUpperCase().padStart(4, "0");
 }
 
+// Limites específicos do BR Code; o TLV genérico aceita até 99 bytes.
+// Rejeita dados inválidos sem truncar silenciosamente o nome ou a cidade.
+function validateReceiver(config) {
+  for (const [field, label, maxLength] of [
+    ["nome", "Nome do recebedor", 25],
+    ["cidade", "Cidade do recebedor", 15]
+  ]) {
+    const value = config[field];
+    if (typeof value !== "string" || !value.trim()
+      || new TextEncoder().encode(value).length > maxLength) {
+      throw new Error(label + " deve conter de 1 a " + maxLength + " caracteres no BR Code.");
+    }
+  }
+}
+
 // Pix estático em reais (986), com chave, valor, recebedor e txid não informado (***).
 // Referência: Manual de Padrões para Iniciação do Pix, Banco Central do Brasil.
 function generatePix(cents) {
+  validateReceiver(PIX_CONFIG);
   if (!Number.isSafeInteger(cents) || cents < 1 || cents > 99999999) {
     throw new Error("Valor fora do intervalo permitido.");
   }
