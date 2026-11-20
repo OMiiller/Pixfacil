@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Gerador local de Pix copia e cola para demonstração.">
+  <title>Pix fácil — Gerar pagamento</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="config.js" defer></script>
+  <script src="vendor/qrcode.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="./index.html" aria-label="Pix fácil, início"><span class="brand-icon" aria-hidden="true">◆</span> pix<span class="brand-light">fácil</span></a><span class="demo-badge">Ambiente de demonstração</span></header>
+  <main>
+    <section class="intro"><span class="eyebrow">SIMPLES. DIRETO. PIX.</span><h1>Seu Pix em<br>poucos cliques.</h1><p>Digite o valor, gere o código e copie.<br>Tudo acontece aqui, no seu navegador.</p><div class="local-note"><span aria-hidden="true">✓</span> Sem cadastro. Sem envio de dados.</div></section>
+    <section class="card" aria-labelledby="card-title">
+      <div class="card-heading"><span class="small-icon" aria-hidden="true">◆</span><div><h2 id="card-title">Gerar pagamento Pix</h2><p>Crie um código copia e cola com valor.</p></div></div>
+      <form id="pix-form" novalidate>
+        <label for="amount">Qual valor você quer gerar?</label>
+        <div class="amount-wrap"><span aria-hidden="true">R$</span><input id="amount" name="amount" type="text" inputmode="decimal" placeholder="0,00" autocomplete="off" maxlength="20" aria-describedby="amount-help amount-error"></div>
+        <p id="amount-help" class="help">Use vírgula ou ponto para os centavos. Ex.: 25,90</p>
+        <p id="amount-error" class="error" role="alert"></p>
+        <button class="primary" type="submit">Gerar Pix</button>
+      </form>
+      <div class="result" id="result" hidden>
+        <figure class="qr-figure">
+          <div id="pix-qr"></div>
+          <figcaption>QR code de demonstração · Não faça pagamentos</figcaption>
+        </figure>
+        <div class="result-heading"><label for="pix-code">Pix copia e cola</label><span id="generated-amount"></span></div>
+        <textarea id="pix-code" readonly spellcheck="false" aria-describedby="code-help"></textarea>
+        <button type="button" class="secondary" id="copy-code">Copiar código</button>
+        <p class="help" id="code-help">O código inclui o valor informado. Gerar ou copiar não realiza um pagamento.</p>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+      <aside class="warning"><span aria-hidden="true">!</span><div><strong>Chave de teste. Não faça pagamentos.</strong><p>Substitua a chave de teste por uma chave Pix real e válida no arquivo config.js antes de usar para pagamentos de verdade. Confira também os dados do recebedor.</p></div></aside>
+    </section>
+  </main>
+  <footer>Feito para simplificar <span aria-hidden="true">·</span> HTML, CSS e JavaScript puros</footer>
+</body>
+</html>
